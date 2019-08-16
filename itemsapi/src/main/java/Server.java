@@ -28,6 +28,24 @@ public class Server {
             Collection<Item> userItems = service.getUserItems(req.params(":user"));
             return new Gson().toJson(new Gson().toJsonTree(userItems));
         });
+
+
+        post("/users", (req, res) -> {
+            res.type("application/json");
+            User user = new Gson().fromJson(req.body(), User.class);
+            String token = service.getToken(user);
+            return new Gson().toJson(token);
+        });
+
+        get("/sites", (req, res) -> {
+            res.type("application/json");
+            String token = req.headers("token");
+            Site[] site1 = service.getSites(token);
+            return new Gson().toJson(new Gson().toJsonTree(site1));
+        });
+
+
+
     }
 
 
