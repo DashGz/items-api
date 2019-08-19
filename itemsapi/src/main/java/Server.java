@@ -40,10 +40,19 @@ public class Server {
         get("/sites", (req, res) -> {
             res.type("application/json");
             String token = req.headers("token");
+            System.out.println(token);
             Site[] site1 = service.getSites(token);
             return new Gson().toJson(new Gson().toJsonTree(site1));
         });
 
+
+        get("/sites/:id/categories", (req, res) -> {
+            res.type("application/json");
+            String token = req.headers("token");
+            System.out.println(token);
+            Category[] categories = service.getCategories(req.params(":id"), token);
+            return new Gson().toJson(new Gson().toJsonTree(categories));
+        });
 
 
     }

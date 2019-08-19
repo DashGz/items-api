@@ -88,11 +88,66 @@ public class ItemServiceMapImpl implements IItemService {
     }
 
     public Site[] getSites(String token){
-        return null;
+
+        try {
+            URL url2 = new URL("http://localhost:8082/users/sites");
+            try {
+                HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
+                con2.setRequestProperty("Content-Type", "application/json");
+                con2.setRequestProperty("Accept", "application/json");
+                con2.setRequestProperty("token", token);
+
+
+                HttpURLConnection connection = con2;
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+                Gson gson = new Gson();
+                Site[] sites =  gson.fromJson(in, Site[].class);
+
+
+                return sites;
+
+
+            } catch (IOException ex) {
+                System.out.println(ex.toString());
+            }
+        } catch (MalformedURLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return (null);
+
+
+
     }
 
     public Category[] getCategories(String id, String token){
-        return null;
+
+        try {
+            URL url3 = new URL("http://localhost:8082/users/sites/" + id + "/categories");
+            try {
+                HttpURLConnection con3 = (HttpURLConnection) url3.openConnection();
+                con3.setRequestProperty("Content-Type", "application/json");
+                con3.setRequestProperty("Accept", "application/json");
+                con3.setRequestProperty("token", token);
+
+
+                HttpURLConnection connection = con3;
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+                Gson gson = new Gson();
+                Category[] categories =  gson.fromJson(in, Category[].class);
+
+
+                return categories;
+
+
+            } catch (IOException ex) {
+                System.out.println(ex.toString());
+            }
+        } catch (MalformedURLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return (null);
     }
 
 }
